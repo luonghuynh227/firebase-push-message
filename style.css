@@ -1,0 +1,31 @@
+body {
+  /* background: url(./1200x628-bachkiem.jpg); */
+}
+.bg-svg {
+  width: 800px;
+  height: 600px;
+  /* background: red; */
+  /* background: url(./aluna2.svg) no-repeat center center;
+  background-size: 100% 100%;overflow: hidden; */
+  /* clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%), circle(50% at 50% 50%); */
+  
+}
+img {
+  -webkit-clip-path: url(#svgPath);
+  clip-path: url(#svgPath)
+}
+.box-video {
+  width: 1000px;
+  /* height: 680px; */
+
+}
+video {
+  width: 100%;
+  /* background: url(./aluna2.svg) no-repeat center center; */
+  -webkit-clip-path: url(#svgPath);
+  clip-path: url(#svgPath);
+}
+svg {
+  /* width: 100%; */
+}
+  
