@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- <img src="1200x628-bachkiem.jpg" alt="">
+    <div class="box-video">
+      <video class="slide_video slide_media" autoplay preload="metadata" loop="" muted="" poster="https://pklegend.net//assets/frontend/landing/hotgame/assets/images/poster.jpg">
+        <source src="https://pklegend.net//assets/frontend/landing/hotgame/assets/videos/video11.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <svg>
+      <defs>
+        <clipPath id="svgPath" clipPathUnits="objectBoundingBox" transform="scale(0.0012048192771084, 0.0021276595744681)">
+          <path fill="none" stroke="red" strokewidth="2" d="M26.5-.5l776,1s1,26,27,26v416s-26,1-26,27H26.5s0-28-26-28l-1-414S26.5,26.5,26.5-.5Z" ></path>
+        </clipPath>
+      </defs>
+    </svg> -->
+
+  <p id="token"></p>
+
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-messaging.js"></script>
+
+
+<script>
+  // option 1
+  const firebaseConfig = {
+    apiKey: "AIzaSyBP1bN6Gx0CSvxceRPFM-Yxir3PYyXySrM",
+    authDomain: "send-message-c4632.firebaseapp.com",
+    databaseURL: "https://send-message-c4632.firebaseio.com",
+    projectId: "send-message-c4632",
+    storageBucket: "send-message-c4632.appspot.com",
+    messagingSenderId: "1001457799507",
+    appId: "1:1001457799507:web:26e1984bac7e38858011a6",
+    measurementId: "G-3LMVM8W7BW"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+    const messaging=firebase.messaging();
+
+    function IntitalizeFireBaseMessaging() {
+        messaging
+            .requestPermission()
+            .then(function () {
+                console.log("Notification Permission");
+                return messaging.getToken();
+            })
+            .then(function (token) {
+                console.log("Token : "+token);
+                document.getElementById("token").innerHTML=token;
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            });
+    }
+
+    messaging.onMessage(function (payload) {
+        console.log(payload);
+        const notificationOption={
+            body:payload.notification.body,
+            icon:payload.notification.icon
+        };
+
+        if(Notification.permission==="granted"){
+            var notification=new Notification(payload.notification.title,notificationOption);
+
+            notification.onclick=function (ev) {
+                ev.preventDefault();
+                window.open(payload.notification.click_action,'_blank');
+                notification.close();
+            }
+        }
+
+    });
+    messaging.onTokenRefresh(function () {
+        messaging.getToken()
+            .then(function (newtoken) {
+                console.log("New Token : "+ newtoken);
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            })
+    })
+    IntitalizeFireBaseMessaging();
+
+
+  // option 2 demo
+  // var firebaseConfig = {
+  //   apiKey: "AIzaSyBP1bN6Gx0CSvxceRPFM-Yxir3PYyXySrM",
+  //   authDomain: "send-message-c4632.firebaseapp.com",
+  //   databaseURL: "https://send-message-c4632.firebaseio.com",
+  //   projectId: "send-message-c4632",
+  //   storageBucket: "send-message-c4632.appspot.com",
+  //   messagingSenderId: "1001457799507",
+  //   appId: "1:1001457799507:web:26e1984bac7e38858011a6",
+  //   measurementId: "G-3LMVM8W7BW"
+  // };
+  // // Initialize Firebase
+  // firebase.initializeApp(firebaseConfig);
+
+  // const messaging = firebase.messaging();
+
+
+  // messaging.requestPermission()
+  // .then(function() {
+  //   console.log('Have permision');
+  // })
+  // .then(function(token) {
+  // })
+  // .catch(function(err) {
+  //   console.log('Error Occured.');
+  // })
+</script>
+</body>
+</html>
